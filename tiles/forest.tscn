@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=3 uid="uid://dorede5vetxkd"]
+
+[ext_resource type="PackedScene" uid="uid://dwcq5qu40p3e" path="res://tiles/tile.tscn" id="1_ehxr1"]
+[ext_resource type="Texture2D" uid="uid://bn53mvp143qkb" path="res://assets/tree.png" id="2_l5d48"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0jljq"]
+albedo_color = Color(0, 0.564706, 0.352941, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odt40"]
+atlas = ExtResource("2_l5d48")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seap5"]
+atlas = ExtResource("2_l5d48")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tv2n2"]
+atlas = ExtResource("2_l5d48")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3u1n"]
+atlas = ExtResource("2_l5d48")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ljbqo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odt40")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_seap5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tv2n2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q3u1n")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[node name="Tile" instance=ExtResource("1_ehxr1")]
+
+[node name="Mesh" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_0jljq")
+
+[node name="Tree1" type="AnimatedSprite3D" parent="Mesh/Objects" index="0"]
+transform = Transform3D(1, -3.48787e-16, 0, 3.48787e-16, 1, -3.48787e-16, 0, 3.48787e-16, 1, 0.108, 0, -0.0895289)
+extra_cull_margin = 1.0
+offset = Vector2(2.08165e-12, 75)
+pixel_size = 0.004
+billboard = 1
+alpha_cut = 2
+sprite_frames = SubResource("SpriteFrames_ljbqo")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.34695
+
+[node name="Tree2" type="AnimatedSprite3D" parent="Mesh/Objects" index="1"]
+transform = Transform3D(1, -2.64698e-23, 0, -2.64698e-23, 1, 2.64698e-23, 0, 2.64698e-23, 1, -0.241693, 0, 0.0161806)
+extra_cull_margin = 1.0
+offset = Vector2(2.08165e-12, 75)
+pixel_size = 0.0035
+billboard = 1
+alpha_cut = 2
+sprite_frames = SubResource("SpriteFrames_ljbqo")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.34695
+
+[node name="Tree3" type="AnimatedSprite3D" parent="Mesh/Objects" index="2"]
+transform = Transform3D(1, -2.64698e-23, 0, -2.64698e-23, 1, 2.64698e-23, 0, 2.64698e-23, 1, 0.202651, 0, 0.291662)
+extra_cull_margin = 1.0
+offset = Vector2(2.08165e-12, 75)
+pixel_size = 0.003
+billboard = 1
+alpha_cut = 2
+sprite_frames = SubResource("SpriteFrames_ljbqo")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.34695
+
+[node name="Tree4" type="AnimatedSprite3D" parent="Mesh/Objects" index="3"]
+transform = Transform3D(1, -2.64698e-23, 0, -2.64698e-23, 1, 2.64698e-23, 0, 2.64698e-23, 1, -0.139622, 0, 0.32747)
+extra_cull_margin = 1.0
+offset = Vector2(2.08165e-12, 75)
+pixel_size = 0.002
+billboard = 1
+alpha_cut = 2
+sprite_frames = SubResource("SpriteFrames_ljbqo")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.34695

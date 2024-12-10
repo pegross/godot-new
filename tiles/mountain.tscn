@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsdxusudqchbm"]
+
+[ext_resource type="PackedScene" uid="uid://dwcq5qu40p3e" path="res://tiles/tile.tscn" id="1_7cqhs"]
+[ext_resource type="Texture2D" uid="uid://cmw1gcm6rlfbp" path="res://assets/mountain.png" id="2_of0rl"]
+[ext_resource type="Texture2D" uid="uid://bfyvr61fokrm3" path="res://assets/mountain2.png" id="3_g6e7x"]
+
+[node name="Tile" instance=ExtResource("1_7cqhs")]
+
+[node name="Mountain" type="Sprite3D" parent="Mesh/Objects" index="0"]
+transform = Transform3D(0.53, 0, 0, 0, 0.53, -1.94898e-31, 0, 0, 0.53, -0.015, 2.08165e-12, 2.08165e-12)
+extra_cull_margin = 1.0
+offset = Vector2(2.08165e-12, 615)
+pixel_size = 0.001
+billboard = 1
+alpha_cut = 2
+texture = ExtResource("2_of0rl")
+
+[node name="Mountain2" type="Sprite3D" parent="Mesh/Objects" index="1"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, -1.81746e-31, 0, 0, 0.8, 0.00374095, -2.88034e-24, 0.19542)
+extra_cull_margin = 1.0
+offset = Vector2(2.08165e-12, 250)
+pixel_size = 0.001
+billboard = 1
+alpha_cut = 2
+texture = ExtResource("3_g6e7x")
+
+[node name="Mountain3" type="Sprite3D" parent="Mesh/Objects" index="2"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, -3.63492e-31, 0, 0, 0.6, 0.0101454, -5.09647e-24, 0.351897)
+extra_cull_margin = 1.0
+offset = Vector2(2.08165e-12, 250)
+pixel_size = 0.001
+billboard = 1
+alpha_cut = 2
+texture = ExtResource("3_g6e7x")

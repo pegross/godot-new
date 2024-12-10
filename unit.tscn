@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://dklumttw3gbje"]
+
+[ext_resource type="Texture2D" uid="uid://c5qi6ysb110gv" path="res://assets/warrior-blue.png" id="1_482nf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6glk"]
+atlas = ExtResource("1_482nf")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1yeoc"]
+atlas = ExtResource("1_482nf")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_01ky1"]
+atlas = ExtResource("1_482nf")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13k5t"]
+atlas = ExtResource("1_482nf")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amtwg"]
+atlas = ExtResource("1_482nf")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bwat"]
+atlas = ExtResource("1_482nf")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_glgcs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6glk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1yeoc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_01ky1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13k5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_amtwg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bwat")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[node name="Unit" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 0.05)
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 0.2)
+offset = Vector2(2.08165e-12, 42)
+billboard = 1
+alpha_cut = 2
+sprite_frames = SubResource("SpriteFrames_glgcs")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.359177

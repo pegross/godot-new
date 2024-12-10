@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cdsp8pbj02gxh"]
+
+[node name="Control" type="Popup"]
+position = Vector2i(705, 300)
+size = Vector2i(400, 300)
+visible = true
+borderless = false
+transparent = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

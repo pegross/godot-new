@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://wuaywxf16dsb"]
+
+[ext_resource type="PackedScene" uid="uid://dorede5vetxkd" path="res://tiles/forest.tscn" id="1_33ltc"]
+[ext_resource type="PackedScene" uid="uid://dklumttw3gbje" path="res://unit.tscn" id="2_g0qo1"]
+[ext_resource type="PackedScene" uid="uid://blyjrixlijst8" path="res://banner-purchase.tscn" id="3_6e8mc"]
+
+[node name="Test" type="Node3D"]
+
+[node name="Tile" parent="." instance=ExtResource("1_33ltc")]
+material = null
+
+[node name="Tile2" parent="." instance=ExtResource("1_33ltc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 0.866)
+material = null
+
+[node name="Unit" parent="." instance=ExtResource("2_g0qo1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00520897, 0, -4.54187e-05)
+
+[node name="Purchase" parent="." instance=ExtResource("3_6e8mc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 0.9)
+visible = false

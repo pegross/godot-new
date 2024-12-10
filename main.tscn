@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://i5bdn5toltqu"]
+
+[ext_resource type="Script" path="res://HexGrid.gd" id="1_g2g5c"]
+[ext_resource type="Script" path="res://Camera3D.gd" id="2_s8nbj"]
+[ext_resource type="PackedScene" uid="uid://dklumttw3gbje" path="res://unit.tscn" id="3_yjadn"]
+[ext_resource type="PackedScene" uid="uid://cdsp8pbj02gxh" path="res://gui-purchase.tscn" id="4_upq1q"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3h171"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Main" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, -6.97574e-16, -1.52459e-23, -1.5246e-23, -4.37114e-08, 1, -6.97574e-16, -1, -4.37114e-08, 2.08165e-12, 0.5, 2.08165e-12)
+shadow_enabled = true
+
+[node name="Unit" parent="." instance=ExtResource("3_yjadn")]
+visible = false
+
+[node name="HexGrid" type="Node3D" parent="."]
+script = ExtResource("1_g2g5c")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, -6.92275e-16, 6.05661e-17, 6.05662e-17, 0.173648, 0.984808, -6.92275e-16, -0.984808, 0.173648, 2.08165e-12, 2.864, 2.08165e-12)
+fov = 90.0
+script = ExtResource("2_s8nbj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+follow_viewport_enabled = true
+
+[node name="GuiPurchase" parent="CanvasLayer" instance=ExtResource("4_upq1q")]
+visible = false
+
+[node name="Sprite3d" type="Sprite3D" parent="."]
+texture = SubResource("ViewportTexture_3h171")

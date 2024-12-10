@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://bupvndw2hr0kx"]
+
+[ext_resource type="PackedScene" uid="uid://dwcq5qu40p3e" path="res://tiles/tile.tscn" id="1_t0ej5"]
+[ext_resource type="Material" uid="uid://kvfvik00i311" path="res://resources/water.tres" id="2_hrgxf"]
+
+[node name="Tile" instance=ExtResource("1_t0ej5")]
+material = ExtResource("2_hrgxf")

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://blyjrixlijst8"]
+
+[ext_resource type="Texture2D" uid="uid://bu4gp7a6ut1xu" path="res://assets/icon-purchase.png" id="1_n1h2e"]
+[ext_resource type="Texture2D" uid="uid://b5dgxwvsikbqq" path="res://assets/banner.png" id="1_s37yq"]
+
+[node name="Purchase" type="Node3D"]
+
+[node name="Banner" type="Sprite3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 2.08165e-12, 2.08165e-12, 0.3)
+extra_cull_margin = 1.0
+offset = Vector2(2.08165e-12, 75)
+billboard = 1
+render_priority = 20
+texture = ExtResource("1_s37yq")
+
+[node name="Icon" type="Sprite3D" parent="Banner"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+extra_cull_margin = 1.0
+offset = Vector2(-4, 59)
+billboard = 1
+render_priority = 21
+texture = ExtResource("1_n1h2e")

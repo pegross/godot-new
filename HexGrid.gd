@@ -7,6 +7,3 @@ func _ready():
 	var input_manager = $InputManager
 	var raycast_helper = $RaycastHelper
 	var camera = $Camera3D
-	
-	# If further initialization is needed, do it here.
-	# Otherwise, this script remains minimal as a container for these managers.

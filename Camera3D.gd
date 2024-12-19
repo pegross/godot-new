@@ -9,13 +9,11 @@ var hex_math
 func _ready():
 	# Get references to the managers
 	grid_manager = $"../GridManager"
-	hex_math = $"../HexMath"
 	grid_manager.grid_ready.connect(_on_grid_ready)
 
 func _on_grid_ready(width: int, height: int):
-	var hex_math = $"../HexMath"
 	var tower_pos = Vector2i(width / 2, height / 2)
-	var world_pos = hex_math.pos_to_world(tower_pos)
+	var world_pos = HexMath.pos_to_world(tower_pos)
 	var current_height = position.y
 	global_transform.origin = Vector3(world_pos.x, current_height, world_pos.y)
 	
@@ -27,13 +25,13 @@ func _process(delta):
 	# Check for left/right movement
 	if mouse_position.x < edge_threshold and position.x > 0:
 		move(Vector2(-amount, 0))
-	elif mouse_position.x > viewport_size.x - edge_threshold and position.x < (grid_manager.grid_width * hex_math.TILE_SIZE) - 3:
+	elif mouse_position.x > viewport_size.x - edge_threshold and position.x < (grid_manager.grid_width * HexMath.TILE_SIZE) - 3:
 		move(Vector2(amount, 0))
 
 	# Check for up/down movement
 	if mouse_position.y < edge_threshold and position.z > 0:
 		move(Vector2(0, amount))
-	elif mouse_position.y > viewport_size.y - edge_threshold and position.z < (grid_manager.grid_height * hex_math.TILE_SIZE):
+	elif mouse_position.y > viewport_size.y - edge_threshold and position.z < (grid_manager.grid_height * HexMath.TILE_SIZE):
 		move(Vector2(0, -amount))
 
 func move(direction: Vector2):

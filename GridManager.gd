@@ -5,13 +5,11 @@ extends Node3D
 
 var grid = []
 var tile_factory: Node
-var hex_math: Node
 
 signal grid_ready(width, height)
 
 func _ready():
 	tile_factory = $"../TileFactory"
-	hex_math = $"../HexMath"
 	_generate_grid()
 	call_deferred("emit_signal", "grid_ready", grid_width, grid_height)
 
@@ -38,7 +36,7 @@ func _generate_grid():
 			neighbors[key].purchasable = true
 
 func add_to_grid(tile: Node3D, pos: Vector2i):
-	var cords = hex_math.pos_to_world(pos)
+	var cords = HexMath.pos_to_world(pos)
 	tile.translate(Vector3(cords.x, 0, cords.y))
 	tile.setPos(pos)
 	grid[pos.x][pos.y] = tile
@@ -58,10 +56,10 @@ func get_tile_from_grid(pos: Vector2i):
 
 func surrounding(tile):
 	return {
-		"SW": get_tile_from_grid(hex_math.get_neighbor_pos(tile, "SW")),
-		"NW": get_tile_from_grid(hex_math.get_neighbor_pos(tile, "NW")),
-		"N":  get_tile_from_grid(hex_math.get_neighbor_pos(tile, "N")),
-		"NE": get_tile_from_grid(hex_math.get_neighbor_pos(tile, "NE")),
-		"SE": get_tile_from_grid(hex_math.get_neighbor_pos(tile, "SE")),
-		"S":  get_tile_from_grid(hex_math.get_neighbor_pos(tile, "S"))
+		"SW": get_tile_from_grid(HexMath.get_neighbor_pos(tile, "SW")),
+		"NW": get_tile_from_grid(HexMath.get_neighbor_pos(tile, "NW")),
+		"N":  get_tile_from_grid(HexMath.get_neighbor_pos(tile, "N")),
+		"NE": get_tile_from_grid(HexMath.get_neighbor_pos(tile, "NE")),
+		"SE": get_tile_from_grid(HexMath.get_neighbor_pos(tile, "SE")),
+		"S":  get_tile_from_grid(HexMath.get_neighbor_pos(tile, "S"))
 	}

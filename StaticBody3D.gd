@@ -14,7 +14,7 @@ func root():
 	return get_parent().get_parent()
 	
 func hoverShow():
-	$"../HoverLight"
+	get_parent().get_node("HoverLight").visible = true
 
 func hoverHide():
 	get_parent().get_node("HoverLight").visible = false

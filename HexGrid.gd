@@ -21,3 +21,7 @@ func _on_grid_ready(width: int, height: int):
 		# Move the unit's position to match the tile
 		var world_pos = HexMath.pos_to_world(start_pos)
 		unit.global_transform.origin = Vector3(world_pos.x, unit.global_transform.origin.y, world_pos.y)
+	
+	# After placing the unit, start the turn
+	var turn_manager = $TurnManager
+	turn_manager.start_new_turn()

@@ -34,12 +34,16 @@ func _generate_grid():
 	var tower_tile = tile_factory.make_tile('tower')
 	var old_tile = grid[grid_width / 2][grid_height / 2]
 	replace_tile(old_tile, tower_tile)
+
+	# Immediate neighbors (radius = 1)
 	var neighbors = surrounding(tower_tile)
 	for key in neighbors:
 		if neighbors[key] and neighbors[key].type == 'void':
 			var random_tile = tile_factory.make_random_tile()
 			replace_tile(neighbors[key], random_tile)
 
+	# Create two extra rings (for example, radius 2 and 3)
+	create_additional_rings(tower_tile, 3)
 
 func get_unit_at(pos: Vector2i) -> Unit:
 	var tile = get_tile_from_grid(pos)
@@ -56,12 +60,8 @@ func add_to_grid(tile: Node3D, pos: Vector2i):
 
 func replace_tile(old_tile, new_tile):
 	var cord = old_tile.pos
-	# When replacing a tile, ensure units are properly handled
-	# If the old tile had a unit, remove it or handle accordingly
 	if old_tile.unit:
-		# If you want to keep the unit, you must reassign it.
-		# For now, let's just remove it. (Or you could handle differently)
-		old_tile.unit = null 
+		old_tile.unit = null
 	old_tile.queue_free()
 	add_to_grid(new_tile, cord)
 
@@ -82,8 +82,6 @@ func surrounding(tile):
 		"S":  get_tile_from_grid(HexMath.get_neighbor_pos(tile, "S"))
 	}
 
-# Request that a unit occupies a new tile position
-# This should handle freeing the old tile and occupying the new one, if possible.
 func request_occupy_tile(unit: Unit, old_pos: Vector2i, new_pos: Vector2i) -> bool:
 	var old_tile = get_tile_from_grid(old_pos)
 	var new_tile = get_tile_from_grid(new_pos)
@@ -91,16 +89,12 @@ func request_occupy_tile(unit: Unit, old_pos: Vector2i, new_pos: Vector2i) -> bo
 	if not new_tile:
 		return false
 
-	# Check if the new tile is free (no unit on it)
 	if new_tile.unit != null:
-		# Tile occupied, can't move here
 		return false
 
-	# Mark old tile as free
 	if old_tile and old_tile.unit == unit:
 		old_tile.unit = null
 
-	# Occupy the new tile
 	new_tile.unit = unit
 	return true
 
@@ -119,3 +113,48 @@ func get_hex_neighbor_positions(pos: Vector2i) -> Array:
 
 func calculate_reachable_tiles_for_unit(unit: Unit) -> Array:
 	return pathfinder.calculate_reachable_tiles(unit)
+
+
+# New functions to create additional rings of random tiles
+func create_additional_rings(center_tile, max_radius):
+	var center = center_tile.pos
+	for radius in range(2, max_radius+1):
+		var ring_positions = get_positions_at_radius(center, radius)
+		for pos in ring_positions:
+			var t = get_tile_from_grid(pos)
+			if t and t.type == 'void':
+				var random_tile = tile_factory.make_random_tile()
+				replace_tile(t, random_tile)
+
+# Use BFS to find all positions exactly 'radius' steps away from center.
+func get_positions_at_radius(center: Vector2i, radius: int) -> Array:
+	if radius == 0:
+		return [center]
+
+	var visited = {}
+	var frontier = []
+	# Each entry: [pos, distance]
+	frontier.append([center, 0])
+	visited[center] = 0
+
+	var ring_positions = []
+
+	while frontier.size() > 0:
+		var entry = frontier.pop_back()
+		var pos = entry[0]
+		var dist = entry[1]
+
+		if dist == radius:
+			ring_positions.append(pos)
+			# Don't continue from tiles at exact radius to avoid going beyond radius
+			continue
+		if dist > radius:
+			continue
+
+		var neighbors = get_hex_neighbor_positions(pos)
+		for npos in neighbors:
+			if !visited.has(npos):
+				visited[npos] = dist + 1
+				frontier.append([npos, dist + 1])
+	
+	return ring_positions

@@ -1,6 +1,6 @@
 extends Camera3D
 
-var edge_threshold: int = 125
+var edge_threshold: int = 25
 var camera_speed: float = 5.0
 
 var grid_manager

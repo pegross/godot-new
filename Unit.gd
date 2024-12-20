@@ -28,7 +28,19 @@ func end_turn():
 
 func can_move_to(target_pos: Vector2i) -> bool:
 	var distance = abs(target_pos.x - tile_pos.x) + abs(target_pos.y - tile_pos.y)
-	return distance <= current_movement
+	if distance > current_movement:
+		return false
+
+	# Check if tile is non-void
+	var grid_manager = get_node("/root/Main/HexGrid/GridManager")
+	var tile = grid_manager.get_tile_from_grid(target_pos)
+	if tile == null:
+		return false
+	if tile.type == "void":
+		return false
+
+	return true
+
 
 func move_to_tile(target_pos: Vector2i):
 	if not can_move_to(target_pos):
@@ -38,6 +50,7 @@ func move_to_tile(target_pos: Vector2i):
 	if grid_manager.request_occupy_tile(self, tile_pos, target_pos):
 		tile_pos = target_pos
 		current_movement -= 1
+		print("move points: " + str(current_movement))
 		var world_pos = HexMath.pos_to_world(tile_pos)
 		global_transform.origin = Vector3(world_pos.x, global_transform.origin.y, world_pos.y)
 
@@ -68,9 +81,9 @@ func attack(target: Node):
 		get_node("AnimatedSprite3D").play("attack")
 
 func select_unit():
-	print("hello")
+	print("selected, move points: ", current_movement)
 	pass
 
 func deselect_unit():
-	print("bye")
+	print("deselected")
 	pass

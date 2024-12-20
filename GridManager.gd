@@ -5,12 +5,16 @@ extends Node3D
 
 var grid = []
 var tile_factory: Node
+var pathfinder: HexPathfinder
 
 signal grid_ready(width, height)
 
 func _ready():
 	tile_factory = $"../TileFactory"
 	_generate_grid()
+	# Initialize pathfinder
+	pathfinder = HexPathfinder.new()
+	pathfinder.set_grid_manager(self)
 	call_deferred("emit_signal", "grid_ready", grid_width, grid_height)
 
 func _generate_grid():
@@ -33,7 +37,9 @@ func _generate_grid():
 	var neighbors = surrounding(tower_tile)
 	for key in neighbors:
 		if neighbors[key] and neighbors[key].type == 'void':
-			neighbors[key].purchasable = true
+			var random_tile = tile_factory.make_random_tile()
+			replace_tile(neighbors[key], random_tile)
+
 
 func get_unit_at(pos: Vector2i) -> Unit:
 	var tile = get_tile_from_grid(pos)
@@ -102,3 +108,14 @@ func remove_unit_from_tile(pos: Vector2i):
 	var tile = get_tile_from_grid(pos)
 	if tile and tile.unit:
 		tile.unit = null
+
+func get_hex_neighbor_positions(pos: Vector2i) -> Array:
+	var directions = ["SW","NW","N","NE","SE","S"]
+	var neighbors = []
+	for d in directions:
+		var neighbor_pos = HexMath.get_neighbor_pos({"pos": pos}, d)
+		neighbors.append(neighbor_pos)
+	return neighbors
+
+func calculate_reachable_tiles_for_unit(unit: Unit) -> Array:
+	return pathfinder.calculate_reachable_tiles(unit)

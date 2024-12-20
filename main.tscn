@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://i5bdn5toltqu"]
+[gd_scene load_steps=12 format=3 uid="uid://i5bdn5toltqu"]
 
 [ext_resource type="Script" path="res://HexGrid.gd" id="1_g2g5c"]
 [ext_resource type="Script" path="res://Camera3D.gd" id="2_s8nbj"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://TileFactory.gd" id="6_grd6n"]
 [ext_resource type="Script" path="res://TurnManager.gd" id="7_yb7mt"]
 [ext_resource type="Script" path="res://InputManager.gd" id="8_2xdmw"]
+[ext_resource type="Script" path="res://GameStateMachine.gd" id="8_wfewh"]
 [ext_resource type="Script" path="res://UIManager.gd" id="9_8gchj"]
 [ext_resource type="Script" path="res://RaycastHelper.gd" id="9_rt4ta"]
 
@@ -42,6 +43,9 @@ script = ExtResource("2_s8nbj")
 
 [node name="TurnManager" type="Node" parent="HexGrid"]
 script = ExtResource("7_yb7mt")
+
+[node name="GameStateMachine" type="Node" parent="HexGrid"]
+script = ExtResource("8_wfewh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false

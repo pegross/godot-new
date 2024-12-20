@@ -1,7 +1,7 @@
 extends Node3D
 
-@export_range(2, 20) var grid_height := 20
-@export_range(2, 20) var grid_width := 20
+@export_range(2, 100) var grid_height := 20
+@export_range(2, 100) var grid_width := 20
 
 var grid = []
 var tile_factory: Node
@@ -12,24 +12,30 @@ signal grid_ready(width, height)
 func _ready():
 	tile_factory = $"../TileFactory"
 	_generate_grid()
+
 	# Initialize pathfinder
 	pathfinder = HexPathfinder.new()
 	pathfinder.set_grid_manager(self)
+
 	call_deferred("emit_signal", "grid_ready", grid_width, grid_height)
 
 func _generate_grid():
+	# Resize the outer array
 	grid.resize(grid_width)
+	
+	# For each column, create a row array sized to grid_height, filled with null
 	for x in range(grid_width):
 		grid[x] = []
+		grid[x].resize(grid_height)
 		for y in range(grid_height):
-			grid[x].append(null)
+			grid[x][y] = null
 
 	# Fill with void tiles initially
 	for x in range(grid_width):
 		for y in range(grid_height):
 			var tile = tile_factory.make_tile('void')
 			add_to_grid(tile, Vector2i(x, y))
-	
+
 	# Place a tower in the middle
 	var tower_tile = tile_factory.make_tile('tower')
 	var old_tile = grid[grid_width / 2][grid_height / 2]
@@ -42,8 +48,8 @@ func _generate_grid():
 			var random_tile = tile_factory.make_random_tile()
 			replace_tile(neighbors[key], random_tile)
 
-	# Create two extra rings (for example, radius 2 and 3)
-	create_additional_rings(tower_tile, 3)
+	# After initial setup, update purchasable states
+	update_purchasable_tiles()
 
 func get_unit_at(pos: Vector2i) -> Unit:
 	var tile = get_tile_from_grid(pos)
@@ -64,6 +70,9 @@ func replace_tile(old_tile, new_tile):
 		old_tile.unit = null
 	old_tile.queue_free()
 	add_to_grid(new_tile, cord)
+
+	# After replacing a tile, also update purchasable status
+	update_purchasable_tiles()
 
 func get_tile_from_grid(pos: Vector2i):
 	if pos.x < 0 or pos.x >= grid_width:
@@ -114,47 +123,21 @@ func get_hex_neighbor_positions(pos: Vector2i) -> Array:
 func calculate_reachable_tiles_for_unit(unit: Unit) -> Array:
 	return pathfinder.calculate_reachable_tiles(unit)
 
-
-# New functions to create additional rings of random tiles
-func create_additional_rings(center_tile, max_radius):
-	var center = center_tile.pos
-	for radius in range(2, max_radius+1):
-		var ring_positions = get_positions_at_radius(center, radius)
-		for pos in ring_positions:
-			var t = get_tile_from_grid(pos)
-			if t and t.type == 'void':
-				var random_tile = tile_factory.make_random_tile()
-				replace_tile(t, random_tile)
-
-# Use BFS to find all positions exactly 'radius' steps away from center.
-func get_positions_at_radius(center: Vector2i, radius: int) -> Array:
-	if radius == 0:
-		return [center]
-
-	var visited = {}
-	var frontier = []
-	# Each entry: [pos, distance]
-	frontier.append([center, 0])
-	visited[center] = 0
-
-	var ring_positions = []
-
-	while frontier.size() > 0:
-		var entry = frontier.pop_back()
-		var pos = entry[0]
-		var dist = entry[1]
-
-		if dist == radius:
-			ring_positions.append(pos)
-			# Don't continue from tiles at exact radius to avoid going beyond radius
-			continue
-		if dist > radius:
-			continue
-
-		var neighbors = get_hex_neighbor_positions(pos)
-		for npos in neighbors:
-			if !visited.has(npos):
-				visited[npos] = dist + 1
-				frontier.append([npos, dist + 1])
-	
-	return ring_positions
+# Make every void tile that is adjacent to a non-void tile purchasable
+func update_purchasable_tiles():
+	for x in range(grid_width):
+		for y in range(grid_height):
+			var tile = grid[x][y]
+			if tile == null:
+				continue
+			if tile.type == "void":
+				var neighbors = get_hex_neighbor_positions(Vector2i(x, y))
+				var has_non_void_neighbor = false
+				for npos in neighbors:
+					var ntile = get_tile_from_grid(npos)
+					if ntile and ntile.type != "void":
+						has_non_void_neighbor = true
+						break
+				tile.purchasable = has_non_void_neighbor
+			else:
+				tile.purchasable = false

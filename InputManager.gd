@@ -31,7 +31,7 @@ func _input(event):
 	if event is InputEventKey and event.is_pressed():
 		# Press 'F' to end turn (or handle turn logic)
 		if event.keycode == KEY_F:
-			var turn_manager = $"/root/Main/TurnManager"
+			var turn_manager = $"/root/Main/HexGrid/TurnManager"
 			turn_manager.start_new_turn()
 
 		# Press SPACE to toggle between battle and purchase states

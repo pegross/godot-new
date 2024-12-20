@@ -14,6 +14,7 @@ signal unit_died()
 var current_health: int
 var current_movement: int
 var tile_pos: Vector2i
+var facing_left = false  # Track current facing direction
 
 func _ready():
 	current_health = max_health
@@ -31,7 +32,6 @@ func can_move_to(target_pos: Vector2i) -> bool:
 	if distance > current_movement:
 		return false
 
-	# Check if tile is non-void
 	var grid_manager = get_node("/root/Main/HexGrid/GridManager")
 	var tile = grid_manager.get_tile_from_grid(target_pos)
 	if tile == null:
@@ -40,7 +40,6 @@ func can_move_to(target_pos: Vector2i) -> bool:
 		return false
 
 	return true
-
 
 func move_to_tile(target_pos: Vector2i):
 	if not can_move_to(target_pos):
@@ -51,11 +50,34 @@ func move_to_tile(target_pos: Vector2i):
 		tile_pos = target_pos
 		current_movement -= 1
 		print("move points: " + str(current_movement))
-		var world_pos = HexMath.pos_to_world(tile_pos)
-		global_transform.origin = Vector3(world_pos.x, global_transform.origin.y, world_pos.y)
 
-		emit_signal("unit_moved", tile_pos)
-		get_node("AnimatedSprite3D").play("move")
+		# Calculate the world target position
+		var world_pos = HexMath.pos_to_world(tile_pos)
+		var end_pos = Vector3(world_pos.x, global_position.y, world_pos.y)
+
+		# Determine direction:
+		# Only flip if there's a horizontal movement
+		if end_pos.x < global_position.x:
+			# Move left
+			facing_left = true
+			flip_sprite(facing_left)
+		elif end_pos.x > global_position.x:
+			# Move right
+			facing_left = false
+			flip_sprite(facing_left)
+		# If end_pos.x == global_position.x, do nothing (no horizontal change)
+		# The sprite keeps last orientation.
+
+		var tween = create_tween()
+		tween.tween_property(self, "global_position", end_pos, 0.35)
+		
+		tween.finished.connect(func():
+			emit_signal("unit_moved", tile_pos)
+			get_node("AnimatedSprite3D").play("move"))
+
+func flip_sprite(is_left: bool):
+	var sprite = get_node("AnimatedSprite3D")
+	sprite.flip_h = is_left
 
 func take_damage(amount: int):
 	var dmg = max(amount - defense, 0)
@@ -82,8 +104,6 @@ func attack(target: Node):
 
 func select_unit():
 	print("selected, move points: ", current_movement)
-	pass
 
 func deselect_unit():
 	print("deselected")
-	pass

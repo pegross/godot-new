@@ -35,15 +35,27 @@ func _generate_grid():
 		if neighbors[key] and neighbors[key].type == 'void':
 			neighbors[key].purchasable = true
 
+func get_unit_at(pos: Vector2i) -> Unit:
+	var tile = get_tile_from_grid(pos)
+	if tile and tile.unit:
+		return tile.unit
+	return null
+
 func add_to_grid(tile: Node3D, pos: Vector2i):
 	var cords = HexMath.pos_to_world(pos)
 	tile.translate(Vector3(cords.x, 0, cords.y))
-	tile.setPos(pos)
+	tile.pos = pos
 	grid[pos.x][pos.y] = tile
 	add_child(tile)
 
 func replace_tile(old_tile, new_tile):
 	var cord = old_tile.pos
+	# When replacing a tile, ensure units are properly handled
+	# If the old tile had a unit, remove it or handle accordingly
+	if old_tile.unit:
+		# If you want to keep the unit, you must reassign it.
+		# For now, let's just remove it. (Or you could handle differently)
+		old_tile.unit = null 
 	old_tile.queue_free()
 	add_to_grid(new_tile, cord)
 
@@ -63,3 +75,30 @@ func surrounding(tile):
 		"SE": get_tile_from_grid(HexMath.get_neighbor_pos(tile, "SE")),
 		"S":  get_tile_from_grid(HexMath.get_neighbor_pos(tile, "S"))
 	}
+
+# Request that a unit occupies a new tile position
+# This should handle freeing the old tile and occupying the new one, if possible.
+func request_occupy_tile(unit: Unit, old_pos: Vector2i, new_pos: Vector2i) -> bool:
+	var old_tile = get_tile_from_grid(old_pos)
+	var new_tile = get_tile_from_grid(new_pos)
+
+	if not new_tile:
+		return false
+
+	# Check if the new tile is free (no unit on it)
+	if new_tile.unit != null:
+		# Tile occupied, can't move here
+		return false
+
+	# Mark old tile as free
+	if old_tile and old_tile.unit == unit:
+		old_tile.unit = null
+
+	# Occupy the new tile
+	new_tile.unit = unit
+	return true
+
+func remove_unit_from_tile(pos: Vector2i):
+	var tile = get_tile_from_grid(pos)
+	if tile and tile.unit:
+		tile.unit = null

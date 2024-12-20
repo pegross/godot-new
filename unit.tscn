@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dklumttw3gbje"]
+[gd_scene load_steps=10 format=3 uid="uid://dklumttw3gbje"]
 
 [ext_resource type="Texture2D" uid="uid://c5qi6ysb110gv" path="res://assets/warrior-blue.png" id="1_482nf"]
+[ext_resource type="Script" path="res://Unit.gd" id="1_a4er8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i6glk"]
 atlas = ExtResource("1_482nf")
@@ -54,6 +55,7 @@ animations = [{
 
 [node name="Unit" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 0.05)
+script = ExtResource("1_a4er8")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 0.2)

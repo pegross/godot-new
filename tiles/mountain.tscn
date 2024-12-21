@@ -8,21 +8,21 @@
 movement_cost = 2
 
 [node name="Mountain" type="Sprite3D" parent="Mesh/Objects" index="0"]
-transform = Transform3D(0.53, 0, 0, 0, 0.53, -1.94898e-31, 0, 0, 0.53, -0.015, 2.08165e-12, 2.08165e-12)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.01, 0, 0)
 extra_cull_margin = 1.0
-offset = Vector2(2.08165e-12, 615)
+offset = Vector2(0, 625)
 pixel_size = 0.001
 billboard = 1
-alpha_cut = 2
+alpha_cut = 1
 texture = ExtResource("2_of0rl")
 
 [node name="Mountain2" type="Sprite3D" parent="Mesh/Objects" index="1"]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, -1.81746e-31, 0, 0, 0.8, 0.00374095, -2.88034e-24, 0.19542)
 extra_cull_margin = 1.0
-offset = Vector2(2.08165e-12, 250)
+offset = Vector2(0, 250)
 pixel_size = 0.001
 billboard = 1
-alpha_cut = 2
+alpha_cut = 1
 texture = ExtResource("3_g6e7x")
 
 [node name="Mountain3" type="Sprite3D" parent="Mesh/Objects" index="2"]
@@ -31,5 +31,5 @@ extra_cull_margin = 1.0
 offset = Vector2(2.08165e-12, 250)
 pixel_size = 0.001
 billboard = 1
-alpha_cut = 2
+alpha_cut = 1
 texture = ExtResource("3_g6e7x")

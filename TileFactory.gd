@@ -23,4 +23,4 @@ func make_tile(type: String) -> Node3D:
 	return tile
 
 func make_random_tile() -> Node3D:
-	return make_tile(['forest', 'mountain', 'water', 'grass'].pick_random())
+	return make_tile(['forest', 'mountain', 'water', 'grass', 'grass'].pick_random())

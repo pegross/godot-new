@@ -11,8 +11,9 @@ func _init(sm):
 	grid_manager = sm.grid_manager
 
 func on_enter():
-	# Nothing special on enter for now
-	pass
+  # Hide the purchase banner when entering battle phase
+	grid_manager.set_purchase_icons_visible(false)
+
 
 func on_exit():
 	# Deselect unit and clear highlights if any

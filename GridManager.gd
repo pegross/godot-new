@@ -13,9 +13,9 @@ func _ready():
 	tile_factory = $"../TileFactory"
 	_generate_grid()
 
-	# Initialize pathfinder
+	 # Initialize pathfinder
 	pathfinder = HexPathfinder.new()
-	pathfinder.set_grid_manager(self)
+	pathfinder.set_grid_manager(self)  # Inject dependency directly
 
 	call_deferred("emit_signal", "grid_ready", grid_width, grid_height)
 
@@ -48,8 +48,6 @@ func _generate_grid():
 			var random_tile = tile_factory.make_random_tile()
 			replace_tile(neighbors[key], random_tile)
 
-	# After initial setup, update purchasable states
-	update_purchasable_tiles()
 
 func get_unit_at(pos: Vector2i) -> Unit:
 	var tile = get_tile_from_grid(pos)
@@ -131,13 +129,22 @@ func update_purchasable_tiles():
 			if tile == null:
 				continue
 			if tile.type == "void":
-				var neighbors = get_hex_neighbor_positions(Vector2i(x, y))
-				var has_non_void_neighbor = false
-				for npos in neighbors:
-					var ntile = get_tile_from_grid(npos)
-					if ntile and ntile.type != "void":
-						has_non_void_neighbor = true
-						break
-				tile.purchasable = has_non_void_neighbor
+					# Normal logic: Check neighbors
+					var neighbors = get_hex_neighbor_positions(Vector2i(x, y))
+					var has_non_void_neighbor = false
+					for npos in neighbors:
+						var ntile = get_tile_from_grid(npos)
+						if ntile and ntile.type != "void":
+							has_non_void_neighbor = true
+							break
+					tile.purchasable = has_non_void_neighbor
 			else:
 				tile.purchasable = false
+
+
+func set_purchase_icons_visible(visible: bool):
+	for x in range(grid_width):
+		for y in range(grid_height):
+			var tile = grid[x][y]
+			if tile:
+				tile.show_purchase_icons = visible

@@ -26,6 +26,6 @@ normal_scale = 3.91
 [node name="Tile" instance=ExtResource("1_dfspv")]
 material = SubResource("StandardMaterial3D_udedy")
 
-[node name="Purchase" parent="." index="1" instance=ExtResource("2_gap2d")]
+[node name="PurchaseIcon" parent="." index="1" instance=ExtResource("2_gap2d")]
 transform = Transform3D(1, 0, 0, 0, 1, -1.12238e-23, 0, -1.12238e-23, 1, 2.08165e-12, 2.08165e-12, -0.056)
 script = ExtResource("3_d3t7v")

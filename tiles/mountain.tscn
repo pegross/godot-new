@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bfyvr61fokrm3" path="res://assets/mountain2.png" id="3_g6e7x"]
 
 [node name="Tile" instance=ExtResource("1_7cqhs")]
+movement_cost = 2
 
 [node name="Mountain" type="Sprite3D" parent="Mesh/Objects" index="0"]
 transform = Transform3D(0.53, 0, 0, 0, 0.53, -1.94898e-31, 0, 0, 0.53, -0.015, 2.08165e-12, 2.08165e-12)

@@ -43,6 +43,7 @@ animations = [{
 }]
 
 [node name="Tile" instance=ExtResource("1_ehxr1")]
+movement_cost = 2
 
 [node name="Mesh" parent="." index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_0jljq")

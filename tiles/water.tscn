@@ -5,3 +5,4 @@
 
 [node name="Tile" instance=ExtResource("1_t0ej5")]
 material = ExtResource("2_hrgxf")
+movement_cost = 3

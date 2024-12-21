@@ -9,6 +9,8 @@ func _init(sm):
 	grid_manager = sm.grid_manager
 
 func on_enter():
+	# Show the purchase banner when entering purchase phase
+	grid_manager.set_purchase_icons_visible(true)
 	# On entering purchase mode, no selected units (handled by battle on_exit)
 	pass
 

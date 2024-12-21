@@ -40,37 +40,60 @@ func can_move_to(target_pos: Vector2i) -> bool:
 	return true
 
 func move_to_tile(target_pos: Vector2i):
-	if not can_move_to(target_pos):
+	var grid_manager = get_node("/root/Main/HexGrid/GridManager")
+	var hex_pathfinder = grid_manager.pathfinder
+
+	var path = hex_pathfinder.calculate_path(self, target_pos)
+	if path.size() == 0:
 		return
 
-	var hex_pathfinder = grid_manager.pathfinder
-	var path_cost = hex_pathfinder.calculate_path_cost(self, target_pos)
-	if path_cost == -1 or path_cost > current_movement:
-		return  # Just a safety check; should not happen since can_move_to passed
+	var total_cost = 0
+	for i in range(path.size()):
+		if i > 0:
+			var tile = grid_manager.get_tile_from_grid(path[i])
+			total_cost += tile.movement_cost
 
-	if grid_manager.request_occupy_tile(self, tile_pos, target_pos):
-		tile_pos = target_pos
-		current_movement -= path_cost
-		print("move points: " + str(current_movement))
+	if total_cost > current_movement:
+		return
 
-		# Calculate the world target position
-		var world_pos = HexMath.pos_to_world(tile_pos)
-		var end_pos = Vector3(world_pos.x, global_position.y, world_pos.y)
+	if not grid_manager.request_occupy_tile(self, tile_pos, target_pos):
+		return
 
-		# Determine direction:
-		if end_pos.x < global_position.x:
-			facing_left = true
-			flip_sprite(facing_left)
-		elif end_pos.x > global_position.x:
-			facing_left = false
-			flip_sprite(facing_left)
+	tile_pos = target_pos
+	current_movement -= total_cost
+	print("move points: " + str(current_movement))
 
-		var tween = create_tween()
-		tween.tween_property(self, "global_position", end_pos, 0.35)
-		
-		tween.finished.connect(func():
-			emit_signal("unit_moved", tile_pos)
-			get_node("AnimatedSprite3D").play("move"))
+	var sprite = get_node("AnimatedSprite3D")
+
+	# Start animating from the second tile in the path (index 1)
+	_animate_next_step(1, path, sprite, grid_manager)
+
+func _animate_next_step(index: int, path: Array, sprite: AnimatedSprite3D, grid_manager):
+	if index >= path.size():
+		emit_signal("unit_moved", tile_pos)
+		sprite.play("move")
+		return
+
+	var next_tile = grid_manager.get_tile_from_grid(path[index])
+	var tile_world_pos = HexMath.pos_to_world(path[index])
+	var end_pos = Vector3(tile_world_pos.x, global_position.y, tile_world_pos.y)
+
+	if end_pos.x < global_position.x:
+		facing_left = true
+		flip_sprite(facing_left)
+	elif end_pos.x > global_position.x:
+		facing_left = false
+		flip_sprite(facing_left)
+
+	var segment_duration = 0.3 * next_tile.movement_cost
+	var tween = create_tween()
+	tween.tween_property(self, "global_position", end_pos, segment_duration)
+
+	var on_tween_finished = func():
+		_animate_next_step(index + 1, path, sprite, grid_manager)
+
+	tween.finished.connect(on_tween_finished)
+	
 
 func flip_sprite(is_left: bool):
 	var sprite = get_node("AnimatedSprite3D")

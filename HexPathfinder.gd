@@ -99,3 +99,58 @@ func calculate_path_cost(unit: Unit, target_pos: Vector2i) -> int:
 
 	# If we never reached the target_pos, return -1 indicating no path
 	return -1
+	
+func calculate_path(unit: Unit, target_pos: Vector2i) -> Array:
+	# Similar logic to calculate_path_cost, but we also track predecessors to reconstruct the path
+	var start = unit.tile_pos
+	var max_cost = unit.current_movement
+
+	var frontier = []
+	_insert_frontier_sorted(frontier, 0, start)
+
+	var visited = {}
+	visited[start] = 0
+
+	var came_from = {}
+	came_from[start] = null
+
+	while frontier.size() > 0:
+		var entry = frontier[0]
+		frontier.remove_at(0)
+		var current_cost = entry[0]
+		var current_pos = entry[1]
+
+		if visited[current_pos] < current_cost:
+			continue
+
+		if current_pos == target_pos:
+			# Reconstruct path by following came_from
+			return _reconstruct_path(came_from, target_pos)
+
+		if current_cost > max_cost:
+			continue
+
+		var neighbor_positions = grid_manager.get_hex_neighbor_positions(current_pos)
+		for next_pos in neighbor_positions:
+			var tile = grid_manager.get_tile_from_grid(next_pos)
+			if tile == null:
+				continue
+			if tile.type == "void":
+				continue
+
+			var new_cost = current_cost + tile.movement_cost
+			if (not visited.has(next_pos) or new_cost < visited[next_pos]):
+				visited[next_pos] = new_cost
+				came_from[next_pos] = current_pos
+				_insert_frontier_sorted(frontier, new_cost, next_pos)
+
+	# No path found
+	return []
+
+func _reconstruct_path(came_from: Dictionary, end: Vector2i) -> Array:
+	var path = []
+	var current = end
+	while current != null:
+		path.insert(0, current)
+		current = came_from[current]
+	return path

@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyeidwfoejsip"]
+
+[ext_resource type="Script" path="res://ui/TileChoiceOverlay.gd" id="1_1jb6l"]
+
+[node name="TileChoiceOverlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1jb6l")
+
+[node name="PlainsButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 944.0
+offset_top = 384.0
+offset_right = 1136.0
+offset_bottom = 440.0
+text = "Ebene"
+
+[node name="ForestButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 944.0
+offset_top = 448.0
+offset_right = 1136.0
+offset_bottom = 504.0
+text = "Wald"
+
+[node name="MountainButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 944.0
+offset_top = 512.0
+offset_right = 1136.0
+offset_bottom = 568.0
+text = "Gebirge"
+
+[node name="WaterButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 944.0
+offset_top = 576.0
+offset_right = 1136.0
+offset_bottom = 632.0
+text = "Wasser"

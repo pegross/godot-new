@@ -1,8 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://i5bdn5toltqu"]
+[gd_scene load_steps=13 format=3 uid="uid://i5bdn5toltqu"]
 
 [ext_resource type="Script" path="res://HexGrid.gd" id="1_g2g5c"]
 [ext_resource type="Script" path="res://Camera3D.gd" id="2_s8nbj"]
-[ext_resource type="PackedScene" uid="uid://cdsp8pbj02gxh" path="res://PurchaseIcons.tscn" id="4_upq1q"]
+[ext_resource type="PackedScene" uid="uid://bddbmeib1tp7" path="res://PurchaseIcons.tscn" id="4_upq1q"]
 [ext_resource type="Script" path="res://GridManager.gd" id="5_oubtb"]
 [ext_resource type="Script" path="res://TileFactory.gd" id="6_grd6n"]
 [ext_resource type="Script" path="res://TurnManager.gd" id="7_yb7mt"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://GameStateMachine.gd" id="8_wfewh"]
 [ext_resource type="Script" path="res://UIManager.gd" id="9_8gchj"]
 [ext_resource type="Script" path="res://RaycastHelper.gd" id="9_rt4ta"]
+[ext_resource type="Texture2D" uid="uid://dtaadr0c400i2" path="res://forest_icon.png" id="11_ungpl"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_3h171"]
 viewport_path = NodePath("SubViewport")
@@ -63,3 +64,6 @@ offset_bottom = 23.0
 
 [node name="PurchaseIcons" parent="UI" instance=ExtResource("4_upq1q")]
 visible = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture = ExtResource("11_ungpl")

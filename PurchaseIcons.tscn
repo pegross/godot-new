@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cdsp8pbj02gxh"]
+[gd_scene format=3 uid="uid://bddbmeib1tp7"]
 
 [node name="Control" type="Popup"]
 transparent_bg = true

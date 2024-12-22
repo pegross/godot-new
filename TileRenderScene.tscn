@@ -10,15 +10,15 @@ script = ExtResource("1_jixji")
 transparent_bg = true
 render_target_update_mode = 4
 
-[node name="Node3D" type="Node3D" parent="SubViewport"]
+[node name="RenderRoot3D" type="Node3D" parent="SubViewport"]
 
-[node name="Tile" parent="SubViewport/Node3D" instance=ExtResource("1_2pa8i")]
+[node name="Tile" parent="SubViewport/RenderRoot3D" instance=ExtResource("1_2pa8i")]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/Node3D"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/RenderRoot3D"]
 transform = Transform3D(1, -6.97574e-16, -1.52459e-23, -1.5246e-23, -4.37114e-08, 1, -6.97574e-16, -1, -4.37114e-08, 2.08165e-12, 0.5, 2.08165e-12)
 shadow_enabled = true
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport/Node3D"]
+[node name="Camera3D" type="Camera3D" parent="SubViewport/RenderRoot3D"]
 transform = Transform3D(1, 0, 0, 0, 0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 1, 0)
 current = true
 fov = 90.0

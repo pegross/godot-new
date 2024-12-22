@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8qkdxu5rkwws"
-path="res://.godot/imported/tile_icon.png-7ec7a58dd88c8029f872b16ab820728d.ctex"
+uid="uid://xkhb5kuapub1"
+path="res://.godot/imported/forest.png-5adaae93d34b5238c248043f73b8ca06.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/tile_icon.png"
-dest_files=["res://.godot/imported/tile_icon.png-7ec7a58dd88c8029f872b16ab820728d.ctex"]
+source_file="res://icons/forest.png"
+dest_files=["res://.godot/imported/forest.png-5adaae93d34b5238c248043f73b8ca06.ctex"]
 
 [params]
 

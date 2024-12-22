@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tuve44dy6k35"
-path="res://.godot/imported/water_icon.png-78223f40f1b657e63a704e4bdc286d8c.ctex"
+uid="uid://b60ygnbqcn3cr"
+path="res://.godot/imported/mountain.png-6bc3a55b17212b5eba01e5091f3b2c93.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/water_icon.png"
-dest_files=["res://.godot/imported/water_icon.png-78223f40f1b657e63a704e4bdc286d8c.ctex"]
+source_file="res://icons/mountain.png"
+dest_files=["res://.godot/imported/mountain.png-6bc3a55b17212b5eba01e5091f3b2c93.ctex"]
 
 [params]
 

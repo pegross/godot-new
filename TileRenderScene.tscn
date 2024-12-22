@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cgc7fdh3vssdr"]
 
 [ext_resource type="PackedScene" uid="uid://dorede5vetxkd" path="res://tiles/forest.tscn" id="1_2pa8i"]
-[ext_resource type="Script" path="res://tile_render_scene.gd" id="1_jixji"]
+[ext_resource type="Script" path="res://TileRenderScene.gd" id="1_jixji"]
 
 [node name="TileRenderScene" type="Node3D"]
 script = ExtResource("1_jixji")
@@ -19,6 +19,6 @@ transform = Transform3D(1, -6.97574e-16, -1.52459e-23, -1.5246e-23, -4.37114e-08
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport/RenderRoot3D"]
-transform = Transform3D(1, 0, 0, 0, 0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0.66, 0)
 current = true
 fov = 90.0

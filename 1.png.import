@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cppx3r6i3k8jt"
-path="res://.godot/imported/mountain_icon.png-f45b909af344448264c7e9ad1abaa952.ctex"
+uid="uid://ncrmv0hwkt3k"
+path="res://.godot/imported/1.png-515c813a180ba5fd2e61c8e75c4cac47.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/mountain_icon.png"
-dest_files=["res://.godot/imported/mountain_icon.png-f45b909af344448264c7e9ad1abaa952.ctex"]
+source_file="res://1.png"
+dest_files=["res://.godot/imported/1.png-515c813a180ba5fd2e61c8e75c4cac47.ctex"]
 
 [params]
 

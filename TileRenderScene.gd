@@ -51,7 +51,7 @@ func _capture_and_save_png(tile_path: String):
 		if img:
 			# Derive the output file name from the tile_path
 			var base_name = tile_path.get_file().get_basename()  # e.g. 'forest'
-			var output_path = "res://icons/" + base_name + "_icon.png"
+			var output_path = "res://icons/" + base_name + ".png"
 			
 			img.save_png(output_path)
 			print("Saved tile icon:", output_path)

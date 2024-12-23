@@ -13,6 +13,10 @@ func _init(sm):
 func on_enter():
   # Hide the purchase banner when entering battle phase
 	grid_manager.set_purchase_icons_visible(false)
+	
+	# Hide the tile inventory if it was shown in purchase mode
+	var tile_inventory = grid_manager.get_tree().get_root().get_node("Main/UI/TileInventory")
+	tile_inventory.visible = false
 
 
 func on_exit():

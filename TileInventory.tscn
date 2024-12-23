@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dcdbhe5cbi8si"]
+[gd_scene load_steps=7 format=3 uid="uid://dcdbhe5cbi8si"]
 
+[ext_resource type="Script" path="res://TileInventory.gd" id="1_bod3c"]
 [ext_resource type="Texture2D" uid="uid://xkhb5kuapub1" path="res://icons/forest.png" id="1_f5128"]
 [ext_resource type="Texture2D" uid="uid://b60ygnbqcn3cr" path="res://icons/mountain.png" id="2_o5f6s"]
 [ext_resource type="Texture2D" uid="uid://cjf7lk8xieht8" path="res://icons/water.png" id="3_a166g"]
@@ -15,6 +16,7 @@ offset_right = -629.0
 offset_bottom = -83.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_bod3c")
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 0
@@ -23,29 +25,74 @@ offset_bottom = 1072.0
 scale = Vector2(0.5, 0.5)
 columns = 2
 
-[node name="TileIconForest" type="TextureRect" parent="GridContainer"]
+[node name="ForestButton" type="TextureButton" parent="GridContainer"]
 layout_mode = 2
-texture = ExtResource("1_f5128")
+texture_normal = ExtResource("1_f5128")
 
-[node name="TileIconMountain" type="TextureRect" parent="GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_o5f6s")
+[node name="GlowRect" type="ColorRect" parent="GridContainer/ForestButton"]
+visible = false
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.156863)
 
-[node name="TileIconWater" type="TextureRect" parent="GridContainer"]
+[node name="MountainButton" type="TextureButton" parent="GridContainer"]
 layout_mode = 2
-texture = ExtResource("3_a166g")
+texture_normal = ExtResource("2_o5f6s")
 
-[node name="TileIconPlains" type="TextureRect" parent="GridContainer"]
+[node name="GlowRect" type="ColorRect" parent="GridContainer/MountainButton"]
+visible = false
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.156863)
+
+[node name="WaterButton" type="TextureButton" parent="GridContainer"]
 layout_mode = 2
-texture = ExtResource("4_65obs")
+texture_normal = ExtResource("3_a166g")
+
+[node name="GlowRect" type="ColorRect" parent="GridContainer/WaterButton"]
+visible = false
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.156863)
+
+[node name="PlainsButton" type="TextureButton" parent="GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_65obs")
+
+[node name="GlowRect" type="ColorRect" parent="GridContainer/PlainsButton"]
+visible = false
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.156863)
 
 [node name="TextureRect" type="TextureRect" parent="."]
-z_index = -1
+z_index = -5
 layout_mode = 0
 offset_left = 2.99999
 offset_top = 3.0
 offset_right = 565.0
 offset_bottom = 630.0
 scale = Vector2(0.9, 0.9)
+mouse_filter = 2
 texture = ExtResource("5_ff2yq")
 expand_mode = 1

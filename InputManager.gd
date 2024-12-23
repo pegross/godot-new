@@ -7,17 +7,14 @@ var selected_unit: Unit = null
 var currently_highlighted_tiles: Array = []
 var game_state_machine
 
-
 func _ready():
 	camera = $"../Camera3D"
 	grid_manager = $"../GridManager"
 	raycast_helper = $"../RaycastHelper"
 	game_state_machine = $"../GameStateMachine"
 
-
 func _physics_process(delta):
 	pass
-
 
 func _input(event):
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
@@ -29,12 +26,12 @@ func _input(event):
 				handle_tile_click(tile)
 
 	if event is InputEventKey and event.is_pressed():
-		# Press 'F' to end turn (or handle turn logic)
+		# 'F' ends turn
 		if event.keycode == KEY_F:
 			var turn_manager = $"/root/Main/HexGrid/TurnManager"
 			turn_manager.start_new_turn()
 
-		# Press SPACE to toggle between battle and purchase states
+		# Press SPACE to toggle states
 		elif event.keycode == KEY_SPACE:
 			if game_state_machine.is_in_battle_state():
 				game_state_machine.set_state_purchase()
@@ -42,7 +39,7 @@ func _input(event):
 				game_state_machine.set_state_battle()
 
 func handle_tile_click(tile):
-	# Forward to the state machine, no logic here
+	# Forward tile clicks to the state machine
 	game_state_machine.handle_tile_click(tile)
 
 func highlight_reachable_tiles(positions: Array):
@@ -52,7 +49,6 @@ func highlight_reachable_tiles(positions: Array):
 		if tile:
 			tile.set_reachable_highlight(true)
 	currently_highlighted_tiles = positions
-
 
 func clear_reachable_highlights():
 	for pos in currently_highlighted_tiles:

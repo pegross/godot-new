@@ -4,47 +4,54 @@ class_name PurchaseState
 var state_machine
 var grid_manager
 
+var selected_tile_type = null
+var tile_inventory  # We'll store a reference to the UI
+
 func _init(sm):
 	state_machine = sm
 	grid_manager = sm.grid_manager
 
 func on_enter():
-	# Show the purchase banner when entering purchase phase
+	# Show purchase visuals
 	grid_manager.set_purchase_icons_visible(true)
-	# On entering purchase mode, no selected units (handled by battle on_exit)
-	pass
+	
+	# Grab the TileInventory from the scene tree (where you instantiated it).
+	# For example, if you have it at /root/Main/TileInventory:
+	tile_inventory = grid_manager.get_tree().get_root().get_node("Main/UI/TileInventory") 
+	tile_inventory.visible = true
+	
+	# Connect the tile_chosen signal so we know which tile type is selected
+	tile_inventory.tile_chosen.connect(_on_inventory_tile_chosen)
+
+	# Clear any previous selection
+	selected_tile_type = null
 
 func on_exit():
-	# Nothing special on exit for now
-	pass
+	# Hide purchase icons & inventory
+	grid_manager.set_purchase_icons_visible(false)
+	if tile_inventory:
+		tile_inventory.visible = false
 
 func handle_tile_click(tile):
-	# In purchase state, we only buy tiles if void and purchasable
+	# Only purchase if tile is void & purchasable
 	if tile.type != 'void':
+		print("not void")
 		return
 	if not tile.purchasable:
+		print("not purchasable")
 		return
-	 
-	_show_tile_choice_overlay(tile)
-
-	# No unit actions here
-
-func _show_tile_choice_overlay(tile):
-	var overlay = load("res://ui/TileChoiceOverlay.tscn").instantiate()
-	print("instantiate tilechoice")
-	# If it's a canvas layer, add it as a child of /root or your main UI node
-	state_machine.get_tree().root.add_child(overlay)
-
-	# Optionally, set which tiles are available:
-	overlay.available_tiles = ["forest", "mountain", "water"] # Or read from data
-
-	# Connect the tile_chosen signal:
-	overlay.tile_chosen.connect(func(tile_type: String):
-		_on_tile_chosen(tile, tile_type)
-		overlay.queue_free()
-	)
-
-func _on_tile_chosen(tile, tile_type: String):
+	
+	# If we have no selected tile type from the UI, do nothing
+	if selected_tile_type == null:
+		print("no tile selected")
+		return
+	
+	# Place the selected tile type
 	var tile_factory = state_machine.tile_factory
-	var new_tile = tile_factory.make_tile(tile_type)
+	var new_tile = tile_factory.make_tile(selected_tile_type)
 	grid_manager.replace_tile(tile, new_tile)
+
+
+func _on_inventory_tile_chosen(tile_type: String):
+	selected_tile_type = tile_type
+	print("PurchaseState: Player selected tile type =", tile_type)
